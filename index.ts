@@ -108,7 +108,7 @@ class GetYourGitHubProjects {
 	 * The results are sorted by last updated date (most recent first).
 	 * @returns {Promise<any[]>} A promise that resolves to an array of project details with additional information.
 	 */
-	async getProjects(): Promise<any[]> {
+	async fetchRepositoryFiles(): Promise<any[]> {
 		if (this.reponame) {
 			// Fetch details for a single repo
 			const projectData = await this.fetchProjectDetails(this.reponame);
@@ -158,4 +158,4 @@ export default GetYourGitHubProjects;
 // 	"",
 // 	"Github-Token"
 // );
-// fetcher.getProjects().then((files) => console.log(files));
+// fetcher.fetchRepositoryFiles().then((files) => console.log(files));
