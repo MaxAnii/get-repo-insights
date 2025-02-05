@@ -23,14 +23,23 @@ class GetYourGitHubProjects {
 	 * @returns {Promise<string[]>} A promise that resolves to an array of repository names.
 	 * @private
 	 */
-	private async getRepos(): Promise<string[]> {
+	private async getRepos(): Promise<any[]> {
 		try {
 			const response = await fetch(`${this.baseUrl}${this.username}/repos`);
 			if (!response.ok) {
 				throw new Error(`Error fetching repositories: ${response.statusText}`);
 			}
 			const data = await response.json();
-			return data.map((repo: any) => repo.name);
+
+			// Fetch comments count for each repo
+
+			return data.map(async (repo: any) => ({
+				name: repo.name,
+				stars: repo.stargazers_count,
+				forks: repo.forks_count,
+				updated_at: repo.updated_at,
+				url: repo.html_url,
+			}));
 		} catch (error) {
 			console.error(error);
 			return [];
@@ -44,29 +53,31 @@ class GetYourGitHubProjects {
 	async getProjects(): Promise<any[]> {
 		try {
 			const repos = await this.getRepos();
+			console.log(repos);
 			const fileContents: any[] = [];
 
 			for (const repo of repos) {
-				const fileUrl = `https://raw.githubusercontent.com/${this.username}/${repo}/main/${this.filename}`;
+				const fileUrl = `https://raw.githubusercontent.com/${this.username}/${repo.name}/main/${this.filename}`;
 				try {
 					const response = await fetch(fileUrl);
 					if (response.ok) {
-						const fileData = await response.json();
+						let fileData = await response.json();
+						fileData["additonalInformation"] = repo;
 						fileContents.push(fileData);
 					}
 				} catch (error) {
-					console.warn(`Could not fetch ${this.filename} from ${repo}:`, error);
+					// console.warn(`Could not fetch ${this.filename} from ${repo}:`, error);
 				}
 			}
 			return fileContents;
 		} catch (error) {
-			console.error(error);
+			// console.error(error);
 			return [];
 		}
 	}
 }
 
-module.exports = GetYourGitHubProjects;
+export default GetYourGitHubProjects;
 
 // Example Usage
 // const fetcher = new GetYourGitHubProjects("maxAnii", "description.json");
