@@ -1,8 +1,32 @@
 {
 	"name": "get-your-projects",
+	"version": "1.0.0",
 	"description": "Fetch your GitHub projects automatically for your portfolio.",
+	"main": "index.js",
 	"module": "index.ts",
+	"types": "index.d.ts",
 	"type": "module",
+	"author": "maxAnii",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/maxAnii/get-your-projects.git"
+	},
+	"bugs": {
+		"url": "https://github.com/maxAnii/get-your-projects/issues"
+	},
+	"homepage": "https://github.com/maxAnii/get-your-projects#readme",
+	"keywords": [
+		"github",
+		"projects",
+		"portfolio",
+		"fetch",
+		"api"
+	],
+	"scripts": {
+		"build": "tsc",
+		"test": "echo 'No tests specified'"
+	},
 	"devDependencies": {
 		"@types/bun": "latest"
 	},
