@@ -98,7 +98,7 @@ class GetYourGitHubProjects {
 	 * @private
 	 */
 	private async fetchProjectDetails(repoName: string): Promise<any | null> {
-		const fileUrl = `https://raw.githubusercontent.com/${this.username}/${repoName}/main/${this.filename}`;
+		const fileUrl = `https://raw.githubusercontent.com/${this.username}/${repoName}/master/${this.filename}`;
 		return this.fetchWithRateLimit(fileUrl);
 	}
 
@@ -152,10 +152,10 @@ class GetYourGitHubProjects {
 export default GetYourGitHubProjects;
 
 // Example Usage
-// const fetcher = new GetYourGitHubProjects(
-// 	"maxAnii",
-// 	"description.json",
-// 	"",
-// 	"Github-Token"
-// );
-// fetcher.fetchRepositoryFiles().then((files) => console.log(files));
+const fetcher = new GetYourGitHubProjects(
+	"maxAnii",
+	"description.json",
+	"",
+	""
+);
+fetcher.fetchRepositoryFiles().then((files) => console.log(files));
