@@ -152,10 +152,10 @@ class GetYourGitHubProjects {
 export default GetYourGitHubProjects;
 
 // Example Usage
-const fetcher = new GetYourGitHubProjects(
-	"maxAnii",
-	"description.json",
-	"",
-	""
-);
-fetcher.fetchRepositoryFiles().then((files) => console.log(files));
+// const fetcher = new GetYourGitHubProjects(
+// 	"maxAnii",
+// 	"description.json",
+// 	"",
+// 	""
+// );
+// fetcher.fetchRepositoryFiles().then((files) => console.log(files));
