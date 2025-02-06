@@ -35,7 +35,7 @@ import GetYourGitHubProjects from "get-your-projects";
 ```ts
 const fetcher = new GetYourGitHubProjects(
 	"your-github-username",
-	"description.json",
+	"file-name",
 	"your-github-token"
 );
 fetcher.fetchRepositoryFiles().then((projects) => console.log(projects));
@@ -46,7 +46,7 @@ fetcher.fetchRepositoryFiles().then((projects) => console.log(projects));
 ```ts
 const fetcher = new GetYourGitHubProjects(
 	"your-github-username",
-	"description.json",
+	"file-name",
 	"your-github-token",
 	"repo-name"
 );
