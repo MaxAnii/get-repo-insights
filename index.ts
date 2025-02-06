@@ -2,72 +2,36 @@ class GetYourGitHubProjects {
 	private baseUrl: string = "https://api.github.com/users/";
 	private username: string = "";
 	private filename: string = "";
+	private token: string; // GitHub Token (Required for authentication)
 	private reponame?: string;
-	private token?: string; // GitHub Token (Optional for higher rate limits)
 
 	/**
-	 * Initializes the GitHub project fetcher with a username, filename, and optional repository name.
+	 * Initializes the GitHub project fetcher with a username, filename, repository name, and a required token.
 	 * @param {string} username - GitHub username of the target user.
 	 * @param {string} filename - Name of the file containing project details (e.g., description.json).
+	 * @param {string} token - GitHub personal access token for authentication.
 	 * @param {string} [reponame] - (Optional) Name of a specific repository to fetch details from.
-	 * @param {string} [token] - (Optional) GitHub personal access token for authentication.
 	 */
 	constructor(
 		username: string,
 		filename: string,
-		reponame?: string,
-		token?: string
+		token: string,
+		reponame?: string
 	) {
 		this.username = username;
 		this.filename = filename;
-		this.reponame = reponame;
 		this.token = token;
+		this.reponame = reponame;
 	}
 
 	/**
-	 * Fetches data from the GitHub API with retry logic in case of rate limiting.
-	 * Implements exponential backoff when hitting rate limits.
+	 * Fetches data from the GitHub API.
 	 * @param {string} url - The GitHub API URL to fetch.
-	 * @param {number} [attempt] - The current retry attempt (default: 1).
 	 * @returns {Promise<any>} A promise resolving to the fetched data.
 	 */
-	private async fetchWithRateLimit(
-		url: string,
-		attempt: number = 1
-	): Promise<any> {
-		const headers: HeadersInit = this.token
-			? { Authorization: `token ${this.token}` }
-			: {};
+	private async fetchFromGitHub(url: string): Promise<any> {
+		const headers: HeadersInit = { Authorization: `token ${this.token}` };
 		const response = await fetch(url, { headers });
-
-		// Check if rate-limited
-		if (response.status === 403) {
-			const resetTime = response.headers.get("X-RateLimit-Reset");
-			if (resetTime) {
-				const waitTime =
-					new Date(parseInt(resetTime) * 1000).getTime() - Date.now();
-				console.warn(
-					`Rate limit exceeded. Retrying after ${Math.ceil(
-						waitTime / 1000
-					)} seconds...`
-				);
-				await new Promise((resolve) => setTimeout(resolve, waitTime));
-				return this.fetchWithRateLimit(url, attempt);
-			}
-		}
-
-		// Retry on temporary failures with exponential backoff
-		if (!response.ok && attempt < 5) {
-			const waitTime = Math.pow(2, attempt) * 1000; // Exponential backoff
-			console.warn(
-				`Request failed (${response.status}). Retrying in ${
-					waitTime / 1000
-				} seconds...`
-			);
-			await new Promise((resolve) => setTimeout(resolve, waitTime));
-			return this.fetchWithRateLimit(url, attempt + 1);
-		}
-
 		return response.ok ? response.json() : null;
 	}
 
@@ -77,7 +41,7 @@ class GetYourGitHubProjects {
 	 * @private
 	 */
 	private async getRepos(): Promise<any[]> {
-		const data = await this.fetchWithRateLimit(
+		const data = await this.fetchFromGitHub(
 			`${this.baseUrl}${this.username}/repos`
 		);
 		if (!data) return [];
@@ -99,7 +63,7 @@ class GetYourGitHubProjects {
 	 */
 	private async fetchProjectDetails(repoName: string): Promise<any | null> {
 		const fileUrl = `https://raw.githubusercontent.com/${this.username}/${repoName}/master/${this.filename}`;
-		return this.fetchWithRateLimit(fileUrl);
+		return this.fetchFromGitHub(fileUrl);
 	}
 
 	/**
@@ -110,7 +74,6 @@ class GetYourGitHubProjects {
 	 */
 	async fetchRepositoryFiles(): Promise<any[]> {
 		if (this.reponame) {
-			// Fetch details for a single repo
 			const projectData = await this.fetchProjectDetails(this.reponame);
 			if (projectData) {
 				return [
@@ -126,7 +89,6 @@ class GetYourGitHubProjects {
 			return [];
 		}
 
-		// Fetch all repositories
 		const repos = await this.getRepos();
 		const fileContents = await Promise.all(
 			repos.map(async (repo) => {
@@ -138,7 +100,6 @@ class GetYourGitHubProjects {
 			})
 		);
 
-		// Remove null values and sort by updated_at (newest first)
 		return fileContents
 			.filter(Boolean)
 			.sort(
@@ -152,10 +113,5 @@ class GetYourGitHubProjects {
 export default GetYourGitHubProjects;
 
 // Example Usage
-// const fetcher = new GetYourGitHubProjects(
-// 	"maxAnii",
-// 	"description.json",
-// 	"",
-// 	""
-// );
+// const fetcher = new GetYourGitHubProjects("maxAnii", "description.json", "your-github-token");
 // fetcher.fetchRepositoryFiles().then((files) => console.log(files));
