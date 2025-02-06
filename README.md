@@ -17,7 +17,7 @@ dynamically updating portfolios without manually adding project information.
 ## Installation 📦📦📦
 
 ```sh
-npm install get-your-projects
+npm install get-your-github-projects
 ```
 
 ## Usage 🛠️🛠️🛠️
@@ -25,7 +25,7 @@ npm install get-your-projects
 ### Importing the Package
 
 ```ts
-import GetYourGitHubProjects from "get-your-projects";
+import GetYourGitHubProjects from "get-your-github-projects";
 ```
 
 ### Fetching Project Data 📊📊📊
@@ -88,4 +88,4 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ## Repository 🔗🔗🔗
 
-[GitHub Repository](https://github.com/maxAnii/get-your-projects)
+[GitHub Repository](https://github.com/maxAnii/get-your-github-projects)
