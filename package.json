@@ -1,6 +1,6 @@
 {
 	"name": "get-your-projects",
-	"version": "1.0.3",
+	"version": "1.0.0",
 	"description": "Fetch your GitHub projects automatically for your portfolio.",
 	"main": "index.js",
 	"module": "index.ts",
