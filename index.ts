@@ -2,25 +2,17 @@ class GetYourGitHubProjects {
 	private baseUrl: string = "https://api.github.com/users/";
 	private username: string = "";
 	private filename: string = "";
-	private token: string; // GitHub Token (Required for authentication)
 	private reponame?: string;
 
 	/**
 	 * Initializes the GitHub project fetcher with a username, filename, repository name, and a required token.
 	 * @param {string} username - GitHub username of the target user.
 	 * @param {string} filename - Name of the file containing project details (e.g., description.json).
-	 * @param {string} token - GitHub personal access token for authentication.
 	 * @param {string} [reponame] - (Optional) Name of a specific repository to fetch details from.
 	 */
-	constructor(
-		username: string,
-		filename: string,
-		token: string,
-		reponame?: string
-	) {
+	constructor(username: string, filename: string, reponame?: string) {
 		this.username = username;
 		this.filename = filename;
-		this.token = token;
 		this.reponame = reponame;
 	}
 
@@ -30,8 +22,7 @@ class GetYourGitHubProjects {
 	 * @returns {Promise<any>} A promise resolving to the fetched data.
 	 */
 	private async fetchFromGitHub(url: string): Promise<any> {
-		const headers: HeadersInit = { Authorization: `token ${this.token}` };
-		const response = await fetch(url, { headers });
+		const response = await fetch(url);
 		return response.ok ? response.json() : null;
 	}
 
