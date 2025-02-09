@@ -33,11 +33,7 @@ import GetYourGitHubProjects from "get-your-github-projects";
 #### Fetch Data from All Repositories
 
 ```ts
-const fetcher = new GetYourGitHubProjects(
-	"your-github-username",
-	"file-name",
-	"your-github-token"
-);
+const fetcher = new GetYourGitHubProjects("your-github-username", "file-name");
 fetcher.fetchRepositoryFiles().then((projects) => console.log(projects));
 ```
 
@@ -47,7 +43,6 @@ fetcher.fetchRepositoryFiles().then((projects) => console.log(projects));
 const fetcher = new GetYourGitHubProjects(
 	"your-github-username",
 	"file-name",
-	"your-github-token",
 	"repo-name"
 );
 fetcher.fetchRepositoryFiles().then((project) => console.log(project));
@@ -64,7 +59,6 @@ new GetYourGitHubProjects(username: string, filename: string, token: string, rep
 - **username** _(required)_: GitHub username.
 - **filename** _(required)_: The filename to fetch from repositories (e.g.,
   `description.json`).
-- **token** _(required)_: GitHub personal access token for authentication.
 - **reponame** _(optional)_: Fetch data from a specific repository.
 
 ### Methods
