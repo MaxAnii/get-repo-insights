@@ -1,7 +1,7 @@
 {
-	"name": "get-your-github-projects",
-	"version": "1.0.3",
-	"description": "Fetch your GitHub projects automatically for your portfolio.",
+	"name": "get-repo-insights",
+	"version": "1.0.0",
+	"description": "Fetch your GitHub repo insights to your project automatically.",
 	"main": "index.js",
 	"module": "index.ts",
 	"types": "index.d.ts",
