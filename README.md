@@ -1,85 +1,115 @@
-# GetYourGitHubProjects 🚀🚀🚀
+# get-repo-insights 🚀✨🔥
 
-## Overview 🎯🎯🎯
+![GitHub package](https://img.shields.io/github/package-json/v/maxAnii/get-your-projects)
+![License](https://img.shields.io/github/license/maxAnii/get-your-projects)
+![GitHub issues](https://img.shields.io/github/issues/maxAnii/get-your-projects)
 
-**GetYourGitHubProjects** is an NPM package that allows users to automatically
-fetch project details from their GitHub repositories. This is useful for
-dynamically updating portfolios without manually adding project information.
+## 🚀 Get Your GitHub Repository Insights Effortlessly ✨📊🔍
 
-## Features 🔥🔥🔥
+**get-repo-insights** is a simple package that helps you fetch insights about
+your GitHub repositories, including metadata like stars, forks, and languages.
+It also allows you to retrieve specific files from your repositories. 📂📡🔗
 
-- Fetch project descriptions from all repositories or a specific one.
-- Sort repositories by the most recently updated.
-- Retrieve additional repository information such as stars, forks, and last
-  updated date.
-- Requires a GitHub personal access token for authentication.
+This package is built in a **Bun environment**, ensuring faster execution and
+optimized performance. ⚡🐰🚀
 
-## Installation 📦📦📦
+## ✨ Features 🎯📌🚀
+
+- Fetch all repositories of a user with metadata
+- Retrieve specific details of a particular repository
+- Fetch specific file data from repositories
+- Sort repositories by creation date (newest first)
+- Simple and efficient API requests
+
+## 📦 Installation 🔧🛠️⚙️
+
 
 ```sh
-npm install get-your-github-projects
+npm i get-repo-insights
 ```
 
-## Usage 🛠️🛠️🛠️
+## 🛠 Usage 📖💡⚡
 
-### Importing the Package
+### Importing the package 📦🚀✨
 
 ```ts
-import GetYourGitHubProjects from "get-your-github-projects";
+import RepoInsights from "get-repo-insights";
 ```
 
-### Fetching Project Data 📊📊📊
-
-#### Fetch Data from All Repositories
+### Fetch all repositories of a user 🔍📂📊
 
 ```ts
-const fetcher = new GetYourGitHubProjects("your-github-username", "file-name");
-fetcher.fetchRepositoryFiles().then((projects) => console.log(projects));
+const fetcher = new RepoInsights("maxAnii");
+fetcher.fetchInsights().then((repos) => console.log(repos));
 ```
 
-#### Fetch Data from a Specific Repository
+#### Example Output 📜📊🖥️
+
+```json
+[
+	{
+		"name": "ProjectHarbor",
+		"description": "A powerful project management tool",
+		"topics": ["project-management", "tasks"],
+		"language": "TypeScript",
+		"repoURL": "https://github.com/maxAnii/ProjectHarbor",
+		"liveURL": "https://projectharbor.com",
+		"stars": 120,
+		"forks": 30,
+		"createdAt": "2023-05-15T10:00:00Z",
+		"updatedAt": "2024-02-25T08:00:00Z"
+	}
+]
+```
+
+### Fetch insights for a specific repository 🔍📊💡
 
 ```ts
-const fetcher = new GetYourGitHubProjects(
-	"your-github-username",
-	"file-name",
-	"repo-name"
+const fetcher = new RepoInsights("maxAnii", undefined, "ProjectHarbor");
+fetcher.fetchInsights().then((repo) => console.log(repo));
+```
+
+### Fetch a specific file from all repositories 📂🔍📊
+
+```ts
+const fetcher = new RepoInsights("maxAnii", "description.json");
+fetcher.fetchInsights().then((files) => console.log(files));
+```
+
+### Fetch a specific file from a particular repository 📂🔍🔗
+
+```ts
+const fetcher = new RepoInsights(
+	"maxAnii",
+	"description.json",
+	"ProjectHarbor"
 );
-fetcher.fetchRepositoryFiles().then((project) => console.log(project));
+fetcher.fetchInsights().then((file) => console.log(file));
 ```
 
-## API Methods 📖📖📖
+## 🔥 Use Cases 🚀🎯💡
 
-### Constructor
+- **Portfolio Integration**: Fetch and display GitHub projects dynamically on a
+  personal portfolio.
+- **Project Analytics**: Analyze and compare repositories based on stars, forks,
+  and languages.
+- **Repository Backup**: Retrieve specific files from repositories for backup or
+  migration.
+- **Showcasing Open Source Work**: Display project insights directly in blogs or
+  websites.
 
-```ts
-new GetYourGitHubProjects(username: string, filename: string, token: string, reponame?: string)
-```
 
-- **username** _(required)_: GitHub username.
-- **filename** _(required)_: The filename to fetch from repositories (e.g.,
-  `description.json`).
-- **reponame** _(optional)_: Fetch data from a specific repository.
+## 📄 License 📝⚖️✅
 
-### Methods
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
+for details.
 
-#### `fetchRepositoryFiles(): Promise<any[]>` 📂📂📂
-
-Fetches the project details either from all repositories or a specific one if
-`reponame` is provided.
-
-## License 📜📜📜
-
-This project is licensed under the MIT License.
-
-## Contributing 🤝🤝🤝
+## 🤝 Contributing 💡💻📬
 
 Contributions are welcome! Feel free to open an issue or submit a pull request.
 
-## Author ✍️✍️✍️
+## 📬 Support 📩🙌📢
 
-**maxAnii**
-
-## Repository 🔗🔗🔗
-
-[GitHub Repository](https://github.com/maxAnii/get-your-github-projects)
+For any issues, check out the
+[GitHub Issues](https://github.com/maxAnii/get-your-projects/issues) or contact
+me at [GitHub](https://github.com/maxAnii).
