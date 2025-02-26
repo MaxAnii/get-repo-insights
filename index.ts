@@ -161,11 +161,3 @@ class RepoInsights {
 }
 
 export default RepoInsights;
-
-// Example Usage
-const fetcher = new RepoInsights(
-	"maxAnii",
-	"description.json",
-	"ProjectHarbor"
-);
-fetcher.fetchInsights().then((repos) => console.log(repos));
