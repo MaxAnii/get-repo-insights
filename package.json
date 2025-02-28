@@ -1,6 +1,6 @@
 {
 	"name": "get-repo-insights",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Fetch your GitHub repo insights to your project automatically.",
 	"main": "index.js",
 	"module": "index.ts",
