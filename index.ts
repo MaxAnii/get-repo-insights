@@ -109,24 +109,23 @@ class RepoInsights {
 
 				if (!repoDetails) return [];
 				return fileData
-					? [
-							{
-								...fileData,
-								repoInsights: {
-									name: repoDetails.name,
-									description: repoDetails.description,
-									topics: repoDetails.topics,
-									language: repoDetails.language,
-									repoURL: repoDetails.html_url,
-									liveURL: repoDetails.homepage,
-									stars: repoDetails.stargazers_count,
-									forks: repoDetails.forks_count,
-									createdAt: repoDetails.created_at,
-									updatedAt: repoDetails.updated_at,
-								},
+					? {
+							fileData,
+
+							repoInsights: {
+								name: repoDetails.name,
+								description: repoDetails.description,
+								topics: repoDetails.topics,
+								language: repoDetails.language,
+								repoURL: repoDetails.html_url,
+								liveURL: repoDetails.homepage,
+								stars: repoDetails.stargazers_count,
+								forks: repoDetails.forks_count,
+								createdAt: repoDetails.created_at,
+								updatedAt: repoDetails.updated_at,
 							},
-					  ]
-					: [];
+					  }
+					: null;
 			}
 
 			// Fetch all repositories for the user
@@ -145,7 +144,7 @@ class RepoInsights {
 						fileResults[index].status === "fulfilled"
 							? fileResults[index].value
 							: null;
-					return fileData ? { ...fileData, repoInsights: repo } : null;
+					return fileData ? { fileData, repoInsights: repo } : null;
 				})
 				.filter(Boolean) // Remove null values
 				.sort(
