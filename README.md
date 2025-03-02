@@ -23,7 +23,6 @@ optimized performance. ⚡🐰🚀
 
 ## 📦 Installation 🔧🛠️⚙️
 
-
 ```sh
 npm i get-repo-insights
 ```
@@ -62,10 +61,10 @@ fetcher.fetchInsights().then((repos) => console.log(repos));
 ]
 ```
 
-### Fetch insights for a specific repository 🔍📊💡
+### Fetch insights for a all repository 🔍📊💡
 
 ```ts
-const fetcher = new RepoInsights("maxAnii", undefined, "ProjectHarbor");
+const fetcher = new RepoInsights("maxAnii");
 fetcher.fetchInsights().then((repo) => console.log(repo));
 ```
 
@@ -97,7 +96,6 @@ fetcher.fetchInsights().then((file) => console.log(file));
   migration.
 - **Showcasing Open Source Work**: Display project insights directly in blogs or
   websites.
-
 
 ## 📄 License 📝⚖️✅
 
